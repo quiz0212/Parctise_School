@@ -1,0 +1,116 @@
+﻿@model IEnumerable<prj_Practise_School.Models.TJobTitleIdToJobTitleName>
+
+@{
+    ViewData["Title"] = "list_Suppliers";
+}
+
+@*@using (Html.BeginForm())
+    {
+        <div>
+            <label>職位ID　：</label>
+            <input type="text" name="JobTitleID" />
+            <br />
+            <label>職位名稱：</label>
+            <input type="text" name="JobTitleName" />
+            <br />
+            <input type="submit" value="查詢" />
+        </div>
+    }*@
+<form asp-controller="School" asp-action="JobTitle" method="get">
+    <label>職位ID　：</label>
+    <input type="text" name="JobTitleID" />
+    <br />
+    <label>職位名稱：</label>
+    <input type="text" name="JobTitleName" />
+    <br />
+    <button type="submit">搜尋</button>
+</form>
+
+
+<div>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>
+                    序號
+                </th>
+                <th>
+                    職位ID
+                </th>
+                <th>
+                    職位名稱
+                </th>
+                <th>
+                    操作
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @using (Html.BeginForm())
+                {
+                    <td>
+                        *
+                    </td>
+                    <td>
+                        <input type="text" name="FJobTitleId"  placeholder="ex:'001','002',...'456'..." required pattern="[0-9]{3}"title="請輸入三位數字"  />
+                    </td>
+                    <td>
+                        <input type="text" name="FJobTitleName" placeholder="ex:'教授','老師'..'學生'" required/>
+                    </td>
+                    <td>
+                        <button type="submit">新增</button>
+                    </td>
+                }
+            </tr>
+
+
+            @{ int no = 0;
+                foreach (var item in Model)
+                {
+                    no++;
+                    <tr>
+                        <td>
+                            @no
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FJobTitleId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FJobTitleName)
+                        </td>
+                        <td>
+                            @*@Html.ActionLink("修改", "EditJobTitle", "School", new { id = item.FJobTitleId })*@
+                            <a href="@Url.Action("EditJobTitle", "School",new { id = item.FJobTitleId })">
+                                <i class="fas fa-edit"></i>
+                                @*<span>
+                                        <strong>修改</strong>
+                                    </span>*@
+                            </a>
+                            <a href="@Url.Action("DeleteJobTitle", "School",new { id = item.FJobTitleId })">
+                                <i class="far fa-trash-alt"></i>
+                                @*<span>
+                                        <strong>修改</strong>
+                                    </span>*@
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
